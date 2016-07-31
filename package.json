@@ -1,0 +1,23 @@
+{
+  "name": "kbbi",
+  "version": "0.0.1",
+  "description": "KBBI IV Daring versi CLI",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kbbi",
+    "kamus",
+    "indonesia",
+    "cli"
+  ],
+  "author": "aliakbars",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.13.1",
+    "chalk": "^1.1.3",
+    "cheerio": "^0.20.0",
+    "inquirer": "^1.1.2"
+  }
+}
