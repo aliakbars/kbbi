@@ -4,6 +4,12 @@ Didasarkan pada laman http://kbbi4.portalbahasa.com/
 
 ## Instalasi
 
+Gunakan perintah berikut:
+
+    npm i -g kbbi
+
+## Pengembangan
+
 Salin *repository* ini dengan perintah:
 
     git clone https://github.com/aliakbars/kbbi.git
@@ -19,5 +25,5 @@ Jalankan program dengan perintah:
 ## Daftar pekerjaan
 
 - Daftar turunan kata
-- Perubahan warna untuk .sample
+- Perubahan warna untuk *.sample*
 - Pencarian kata gabungan
