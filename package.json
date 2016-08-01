@@ -8,6 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./bin/kbbi"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aliakbars/kbbi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aliakbars/kbbi.git/issues"
+  },
   "keywords": [
     "kbbi",
     "kamus",
