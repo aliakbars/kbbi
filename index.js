@@ -70,4 +70,5 @@ var ask = function() {
         });
 }
 
-ask();
+// ask();
+module.exports = ask;
