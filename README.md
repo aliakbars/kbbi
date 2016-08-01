@@ -2,7 +2,7 @@
 
 Didasarkan pada laman http://kbbi4.portalbahasa.com/
 
-## Instalasi
+## Instalasi Global
 
 Gunakan perintah berikut:
 
@@ -20,7 +20,7 @@ Jalankan perintah berikut dari folder utama untuk menginstalasi:
 
 Jalankan program dengan perintah:
 
-    node index.js
+    npm start
 
 ## Daftar pekerjaan
 

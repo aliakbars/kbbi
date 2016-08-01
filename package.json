@@ -1,10 +1,19 @@
 {
   "name": "kbbi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "KBBI IV Daring versi CLI",
-  "bin": "index.js",
+  "main": "index.js",
+  "bin": "bin/kbbi",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./bin/kbbi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aliakbars/kbbi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aliakbars/kbbi/issues"
   },
   "keywords": [
     "kbbi",
@@ -18,6 +27,7 @@
     "axios": "^0.13.1",
     "chalk": "^1.1.3",
     "cheerio": "^0.20.0",
+    "file-system-cache": "^1.0.5",
     "inquirer": "^1.1.2"
   }
 }

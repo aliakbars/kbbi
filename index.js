@@ -4,11 +4,15 @@ var chalk = require('chalk');
 var inquirer = require('inquirer');
 var axios = require('axios');
 var cheerio = require('cheerio');
+var NodeCache = require("file-system-cache").default;
 
 var baseUrl = 'http://kbbi4.portalbahasa.com';
 var arti = [];
 var kataBerimbuhan = [];
 var gabunganKata = [];
+var myCache = NodeCache();
+var entri_words = '';
+var is_cache = false;
 
 process.stdout.write('\033c');
 console.log(chalk.bold('Selamat datang di KBBI IV Daring!'));
@@ -23,8 +27,20 @@ var questions = [
 ];
 
 var ask = function() {
-    inquirer.prompt(questions).then(function (answers) {
-        axios.get(baseUrl + '/entri/' + escape(answers.entri)).then(function (response) {
+    inquirer.prompt(questions)
+        .then(function (answers) {
+            entri_words = escape(answers.entri);
+            var entri_response = myCache.getSync(entri_words);
+            if (!entri_response){
+                is_cache = false;
+                return axios.get(baseUrl + '/entri/' + entri_words);
+            } else {
+                is_cache = true;
+                return entri_response;
+            }
+        })
+        .then(function (response) {
+            if (!is_cache) myCache.setSync(entri_words, {data:response.data});
             var $ = cheerio.load(response.data);
             if ($('.syllable').length) {
                 $('.syllable').each(function (i, elm) {
@@ -52,7 +68,7 @@ var ask = function() {
             console.log();
             ask();
         });
-    });
 }
 
-ask();
+// ask();
+module.exports = ask;
