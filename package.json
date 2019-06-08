@@ -1,7 +1,7 @@
 {
   "name": "kbbi",
-  "version": "0.0.3",
-  "description": "KBBI IV Daring versi CLI",
+  "version": "0.0.4",
+  "description": "KBBI Daring versi CLI",
   "main": "index.js",
   "bin": "bin/kbbi",
   "scripts": {
