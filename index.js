@@ -6,7 +6,7 @@ var axios = require('axios');
 var cheerio = require('cheerio');
 var NodeCache = require("file-system-cache").default;
 
-var baseUrl = 'http://kbbi4.portalbahasa.com';
+var baseUrl = 'https://kbbi.kemdikbud.go.id';
 var arti = [];
 var kataBerimbuhan = [];
 var gabunganKata = [];
@@ -15,7 +15,7 @@ var entri_words = '';
 var is_cache = false;
 
 process.stdout.write('\033c');
-console.log(chalk.bold('Selamat datang di KBBI IV Daring!'));
+console.log(chalk.bold('Selamat datang di KBBI Daring!'));
 console.log(chalk.italic('Ctrl-D (EOF) jika Anda telah selesai.\n'));
 
 var questions = [
@@ -42,28 +42,38 @@ var ask = function() {
         .then(function (response) {
             if (!is_cache) myCache.setSync(entri_words, {data:response.data});
             var $ = cheerio.load(response.data);
-            if ($('.syllable').length) {
-                $('.syllable').each(function (i, elm) {
-                    console.log(chalk.green($(elm).text()));
-                    $(elm).parent().next().children().each(function (i, elm) {
-                        $(elm).find('a.attribute').each(function (i, elm) {
-                            process.stdout.write(chalk.red($(elm).text() + ' '));
+            if ($('h2').length) {
+                $('h2').each(function (i, elm) {
+                    var lemma = $(elm).clone().children().remove().end().text();
+                    process.stdout.write(chalk.green(lemma) + '\n');
+
+                    var non_standard = $(elm).find('small').text();
+                    if (non_standard != '') {
+                        process.stdout.write(chalk.gray(non_standard) + '\n');
+                    }
+
+                    $(elm).next().each(function (i, elm) {
+                        $(elm).find('li').each(function (i, elm) {
+                            $(elm).find('span').each(function (i, elm) {
+                                if ($(elm).text().trim() != '') {
+                                    process.stdout.write(chalk.red.italic($(elm).text()) + ' ');
+                                }
+                            });
+                            
+                            var definisi = $(elm).clone().children().remove().end().text();
+                            process.stdout.write(definisi);
+
+                            var link = $(elm).find('a').text();
+                            if (link != '') {
+                                process.stdout.write(chalk.blue(link));
+                            }
+
+                            process.stdout.write('\n');
                         });
-
-                        process.stdout.write($(elm).clone()
-                            .find('a.attribute').remove().end()
-                            .find('.latin').remove().end()
-                            .text().trim());
-
-                        if ($(elm).find('.latin').length != 0) {
-                            process.stdout.write(' ' + chalk.green.italic($(elm).find('.latin').text()));
-                        }
-
-                        process.stdout.write('\n');
                     });
                 });
             } else {
-                console.log(chalk.red('Entri tidak ditemukan.'));
+                process.stdout.write(chalk.red('Entri tidak ditemukan.'));
             }
             console.log();
             ask();
